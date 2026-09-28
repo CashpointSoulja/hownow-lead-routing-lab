@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hownow-lead-routing-lab",
+  "main": "src/worker.ts",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  // docs/*.md and README.md are bundled as text and served at /api/docs/:slug.
+  "rules": [{ "type": "Text", "globs": ["**/*.md"], "fallthrough": true }],
+  "observability": { "enabled": true }
+}

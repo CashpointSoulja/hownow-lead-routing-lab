@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lead Routing Lab: independent concept, synthetic data</title>
+  <meta name="description" content="Independent concept by Ayo Ahmed; not affiliated with HowNow. Eight synthetic leads, transparent fit and intent scoring, deterministic routing with consent, duplicate, stale and missing-data guards." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23243053'/%3E%3Cpath d='M9 10h14M9 16h9M9 22h5' stroke='%23ff4f56' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <div class="top-in">
+      <div class="brand">
+        <p class="subject">Concept about <img src="/brand/hownow-logo.webp" alt="HowNow" width="94" height="24" /> <span>Independent · Not affiliated · No endorsement</span></p>
+        <p class="name">Lead Routing Lab</p>
+      </div>
+      <nav class="tabs" aria-label="Sections">
+        <button type="button" data-view="leads" aria-current="page">Leads</button>
+        <button type="button" data-view="rules">Rules</button>
+        <button type="button" data-view="events">Events</button>
+        <button type="button" data-view="docs">Docs</button>
+      </nav>
+    </div>
+  </header>
+  <p class="notice" role="note"><strong>Synthetic data only.</strong> Eight invented leads on <code>.example</code> domains. No HubSpot connection, no outreach, no real leads or metrics. Weights and SLAs are assumptions to calibrate.</p>
+
+  <main id="main">
+    <section id="view-leads" class="view">
+      <div class="hero">
+        <h1>No lead left behind: <em>score, guard, route.</em></h1>
+        <p class="lede">Each lead gets a fit score and an intent score you can read line by line. Five guards run in a fixed order before the fit × intent matrix, so every lead ends with exactly one owner, SLA and reason.</p>
+        <ul class="stats" id="stats" aria-label="Routing summary"></ul>
+      </div>
+
+      <form class="filters" id="filters" role="search" aria-label="Filter leads">
+        <label class="search"><span>Search</span><input id="q" type="search" placeholder="Company, role, queue, reason…" autocomplete="off" /></label>
+        <label><span>Direction</span><select id="f-direction"><option value="">All</option><option value="inbound">Inbound</option><option value="outbound">Outbound</option></select></label>
+        <label><span>Queue</span><select id="f-queue"><option value="">All queues</option></select></label>
+        <label><span>Guard</span><select id="f-guard"><option value="">Any</option><option value="__any">Any guard fired</option><option value="__none">No guard</option></select></label>
+        <label><span>Fit</span><select id="f-fit"><option value="">All</option><option>A</option><option>B</option><option>C</option></select></label>
+        <label><span>Intent</span><select id="f-intent"><option value="">All</option><option>Hot</option><option>Warm</option><option>Cold</option></select></label>
+        <button type="reset" class="btn ghost">Clear</button>
+      </form>
+
+      <div class="board">
+        <div class="list-wrap">
+          <div class="list-head" aria-hidden="true"><span>Lead</span><span>Fit</span><span>Intent</span><span>Route</span></div>
+          <ul class="list" id="list" aria-label="Leads"></ul>
+          <p class="empty" id="empty" hidden>No leads match these filters.</p>
+          <p class="count" id="count" aria-live="polite"></p>
+        </div>
+        <aside class="detail" id="detail" aria-live="polite" aria-label="Lead detail"></aside>
+      </div>
+    </section>
+
+    <section id="view-rules" class="view" hidden>
+      <div class="hero small"><h1>The rules, <em>in full.</em></h1><p class="lede">Nothing is learned or hidden. These tables are read directly from the engine the router runs, so they cannot drift from behaviour.</p></div>
+      <div id="rules" class="cards"></div>
+    </section>
+
+    <section id="view-events" class="view" hidden>
+      <div class="hero small"><h1>Events, <em>validated live.</em></h1><p class="lede">Every score and route in this session emits an event. Each one is checked against the taxonomy, which accepts ids, enums, numbers and booleans only.</p></div>
+      <div class="cards two">
+        <div class="card"><h2>Session log</h2><p class="muted" id="ev-summary"></p><ol class="evlog" id="evlog"></ol><button type="button" class="btn" id="ev-download">Download JSON</button></div>
+        <div class="card"><h2>Taxonomy</h2><div id="taxonomy"></div></div>
+      </div>
+    </section>
+
+    <section id="view-docs" class="view" hidden>
+      <div class="docs">
+        <nav class="doclist" id="doclist" aria-label="Documents"></nav>
+        <article class="doc" id="doc"></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Independent concept by Ayo Ahmed; not affiliated with HowNow. HowNow and its logo belong to their owner and are used only to name the company this concept is about. <a href="https://github.com/CashpointSoulja/hownow-lead-routing-lab">Source on GitHub</a>.</p>
+  </footer>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
