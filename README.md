@@ -67,7 +67,7 @@ npm run docs:taxonomy  # regenerate the events section of docs/EVENT_TAXONOMY.md
 
 ## Deployment
 
-Target: Cloudflare Workers (`npm run deploy`). Not yet deployed: the build machine had no Cloudflare account connection. The live URL will be added here once deployed.
+Target: Cloudflare Workers (`npm run deploy`, config in `wrangler.jsonc`). Not yet deployed: on the build machine `npx wrangler whoami` returned "You are not authenticated" and no Cloudflare account connection or credential was available. No token was requested or pasted. The live URL will be added here once deployed from an authenticated account.
 
 ## Brand
 
