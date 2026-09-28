@@ -1,6 +1,6 @@
 # Lead Routing Lab: No Lead Left Behind
 
-**Live demo:** not deployed yet (see [Deployment](#deployment)) · [PRD](docs/PRD.md)
+**Live demo:** https://hownow-lead-routing-lab.ayomideahmedcp.workers.dev/ · [PRD](docs/PRD.md)
 
 > **Independent concept by Ayo Ahmed; not affiliated with HowNow. Synthetic data only.**
 > An audition piece for HowNow's [GTM Engineer (Hybrid, UK)](https://careers.gethownow.com/jobs/8258068-gtm-engineer-hybrid-uk) role. It is not HowNow's product, code or data. No HubSpot connection, no outreach, no real leads, no metrics.
@@ -67,7 +67,7 @@ npm run docs:taxonomy  # regenerate the events section of docs/EVENT_TAXONOMY.md
 
 ## Deployment
 
-Target: Cloudflare Workers (`npm run deploy`, config in `wrangler.jsonc`). Not yet deployed: on the build machine `npx wrangler whoami` returned "You are not authenticated" and no Cloudflare account connection or credential was available. No token was requested or pasted. The live URL will be added here once deployed from an authenticated account.
+Live on Cloudflare Workers at https://hownow-lead-routing-lab.ayomideahmedcp.workers.dev/ (health check: [`/api/health`](https://hownow-lead-routing-lab.ayomideahmedcp.workers.dev/api/health)). Deployed through Cloudflare's Git integration, which rebuilds from `main` on push (config in `wrangler.jsonc`). The Worker is static assets plus read-only JSON endpoints: no storage, no secrets, no HubSpot or other external integration, synthetic data only. `npm run deploy` also works from an authenticated Wrangler.
 
 ## Brand
 

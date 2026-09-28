@@ -3,6 +3,7 @@ import { AS_OF, LEADS } from "/engine/leads.js";
 import { routeLead } from "/engine/router.js";
 import { ENTERPRISE_MIN_EMPLOYEES, FIT_WEIGHTS, INTENT_WEIGHTS, QUEUES, REQUIRED_FIELDS, RULES_VERSION, STALE_AFTER_DAYS, TIERS } from "/engine/rules.js";
 import { EVENTS, eventsForRoute, validateEvent } from "/engine/taxonomy.js";
+import { REPO_URL, resolveDocLink } from "/docs-links.js";
 
 const $ = (s, el = document) => el.querySelector(s);
 const esc = (v) => String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
@@ -217,9 +218,15 @@ async function loadDocs(slug) {
     }
     const doc = await (await fetch(`/api/docs/${slug}`)).json();
     $("#doc").innerHTML = marked.parse(doc.markdown);
+    for (const a of document.querySelectorAll("#doc a[href]")) {
+      const link = resolveDocLink(a.getAttribute("href"), slug);
+      if (link?.slug) { a.dataset.doc = link.slug; a.setAttribute("href", `#docs`); }
+      else if (link?.href) a.setAttribute("href", link.href);
+      if (/^https?:/.test(a.getAttribute("href"))) { a.target = "_blank"; a.rel = "noopener"; }
+    }
     for (const b of document.querySelectorAll("#doclist button")) b.setAttribute("aria-current", String(b.dataset.doc === slug));
   } catch {
-    $("#doc").innerHTML = `<p>Docs are served by the Worker API. Read them on <a href="https://github.com/CashpointSoulja/hownow-lead-routing-lab/tree/main/docs">GitHub</a>.</p>`;
+    $("#doc").innerHTML = `<p>Docs are served by the Worker API. Read them on <a href="${REPO_URL}/tree/main/docs">GitHub</a>.</p>`;
   }
 }
 
@@ -258,6 +265,12 @@ $("#detail").addEventListener("click", (e) => {
   renderDetail();
 });
 $("#doclist").addEventListener("click", (e) => { const b = e.target.closest("button[data-doc]"); if (b) loadDocs(b.dataset.doc); });
+$("#doc").addEventListener("click", (e) => {
+  const a = e.target.closest("a[data-doc]");
+  if (!a) return;
+  e.preventDefault();
+  loadDocs(a.dataset.doc).then(() => $("#view-docs").scrollIntoView({ block: "start" }));
+});
 $("#ev-download").addEventListener("click", () => {
   const blob = new Blob([JSON.stringify(state.events, null, 2)], { type: "application/json" });
   const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: "lead-routing-lab-events.json" });
